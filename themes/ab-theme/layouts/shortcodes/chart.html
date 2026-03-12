@@ -1,0 +1,21 @@
+{{ $id := printf "chart-%s" (substr (md5 .Inner) 0 8) }}
+<div class="chart-container my-6" style="position:relative;max-width:720px;margin:auto;">
+  <canvas id="{{ $id }}"></canvas>
+</div>
+<script>
+(function() {
+  function initChart() {
+    var ctx = document.getElementById('{{ $id }}').getContext('2d');
+    var config = {{ .Inner | safeJS }};
+    new Chart(ctx, config);
+  }
+  if (typeof Chart === 'undefined') {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js';
+    s.onload = initChart;
+    document.head.appendChild(s);
+  } else {
+    initChart();
+  }
+})();
+</script>

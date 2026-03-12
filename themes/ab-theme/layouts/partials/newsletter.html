@@ -1,0 +1,12 @@
+{{ with .Site.Params.newsletter }}
+<div class="newsletter-form max-w-md mx-auto">
+  <form action="{{ .action }}" method="post" class="flex gap-2">
+    <input type="email" name="email" placeholder="your@email.com" required
+           class="flex-1 px-4 py-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text)] text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors">
+    <button type="submit"
+            class="px-4 py-2 rounded-lg bg-[var(--color-accent)] text-white text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors">
+      Subscribe
+    </button>
+  </form>
+</div>
+{{ end }}

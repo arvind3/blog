@@ -1,0 +1,22 @@
+{{ if and .TableOfContents (ge (len .TableOfContents) 100) }}
+<nav id="TableOfContents" class="toc mb-8 p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]" aria-label="Table of contents">
+  <h2 class="text-sm font-semibold text-[var(--color-text-muted)] uppercase tracking-wide mb-3">On this page</h2>
+  <div class="toc-content text-sm">
+    {{ .TableOfContents }}
+  </div>
+</nav>
+<style>
+  .toc-content ul { list-style: none; padding-left: 0; margin: 0; }
+  .toc-content ul ul { padding-left: 1rem; }
+  .toc-content li { margin: 0.25rem 0; }
+  .toc-content a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .toc-content a:hover,
+  .toc-content a.active {
+    color: var(--color-accent);
+  }
+</style>
+{{ end }}

@@ -1,0 +1,31 @@
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $caption := .Get "caption" | default "" }}
+
+{{ $img := .Page.Resources.GetMatch $src }}
+{{ if $img }}
+  {{ $small := $img.Resize "400x webp" }}
+  {{ $medium := $img.Resize "800x webp" }}
+  {{ $large := $img.Resize "1200x webp" }}
+  <figure class="my-6">
+    <img
+      src="{{ $medium.RelPermalink }}"
+      srcset="{{ $small.RelPermalink }} 400w, {{ $medium.RelPermalink }} 800w, {{ $large.RelPermalink }} 1200w"
+      sizes="(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px"
+      alt="{{ $alt }}"
+      loading="lazy"
+      class="rounded-lg shadow-md cursor-pointer"
+      onclick="window.open(this.src, '_blank')"
+    >
+    {{ with $caption }}
+    <figcaption class="text-center text-sm text-[var(--color-text-muted)] mt-2">{{ . }}</figcaption>
+    {{ end }}
+  </figure>
+{{ else }}
+  <figure class="my-6">
+    <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy" class="rounded-lg shadow-md">
+    {{ with $caption }}
+    <figcaption class="text-center text-sm text-[var(--color-text-muted)] mt-2">{{ . }}</figcaption>
+    {{ end }}
+  </figure>
+{{ end }}

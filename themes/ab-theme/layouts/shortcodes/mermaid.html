@@ -1,0 +1,17 @@
+<div class="mermaid-container my-6">
+  <pre class="mermaid">
+    {{- .Inner | safeHTML -}}
+  </pre>
+</div>
+<script>
+  if (!window.__mermaidLoaded) {
+    window.__mermaidLoaded = true;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+    s.onload = function() {
+      var theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
+      mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
+    };
+    document.head.appendChild(s);
+  }
+</script>

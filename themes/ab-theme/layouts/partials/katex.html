@@ -1,0 +1,12 @@
+{{ if .Params.math }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tQ2/19CUZLZ7mBNl+3IMKx97WwDaEM5JbZLY0K+Kn5D1lhGlUHt" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Ber5z5C5Xxp2agKQvMzgxkE5VcBlMkGbU4oFdJJ" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd8OVJ5B1gURIvqSMESDRnHs1UMpJHEcON5CQIO7pLK8g36eNLkbi/LJjRMI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });">
+</script>
+{{ end }}

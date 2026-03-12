@@ -1,0 +1,22 @@
+{{ with .Params.series }}
+{{ $series := . }}
+{{ $pages := where $.Site.RegularPages "Params.series" $series }}
+{{ if gt (len $pages) 1 }}
+<nav class="series-nav my-8 p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]" aria-label="Series navigation">
+  <h3 class="text-sm font-semibold text-[var(--color-text-muted)] uppercase tracking-wide mb-3">
+    Series: {{ $series }}
+  </h3>
+  <ol class="space-y-1 text-sm list-decimal list-inside">
+    {{ range $i, $p := $pages }}
+    <li>
+      {{ if eq $p.Permalink $.Permalink }}
+      <span class="font-semibold text-[var(--color-accent)]">{{ $p.Title }} (current)</span>
+      {{ else }}
+      <a href="{{ $p.Permalink }}" class="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors">{{ $p.Title }}</a>
+      {{ end }}
+    </li>
+    {{ end }}
+  </ol>
+</nav>
+{{ end }}
+{{ end }}

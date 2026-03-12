@@ -1,9 +1,18 @@
 {{ define "main" }}
+<!-- Reading progress bar -->
+<div id="reading-progress"></div>
+
 <article class="post">
   <header class="mb-8">
     <h1 class="text-3xl sm:text-4xl font-bold mb-4 leading-tight">{{ .Title }}</h1>
     {{- partial "post-meta.html" . -}}
   </header>
+
+  <!-- Series navigation -->
+  {{- partial "series-nav.html" . -}}
+
+  <!-- Table of contents -->
+  {{- partial "toc.html" . -}}
 
   <div class="prose prose-lg max-w-none
               prose-headings:text-[var(--color-text)] prose-headings:font-semibold
@@ -33,5 +42,17 @@
     {{ end }}
   </div>
   {{ end }}
+
+  <!-- Social share buttons -->
+  {{- partial "social-share.html" . -}}
 </article>
+
+<!-- Related posts -->
+{{- partial "related-posts.html" . -}}
+
+<!-- Comments -->
+{{- partial "comments.html" . -}}
+
+<!-- KaTeX (conditional) -->
+{{- partial "katex.html" . -}}
 {{ end }}

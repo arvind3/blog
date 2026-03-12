@@ -1,0 +1,58 @@
+{{ $id := printf "slides-%s" (substr (md5 .Inner) 0 8) }}
+<div class="slides-container my-8 border border-[var(--color-border)] rounded-lg overflow-hidden" style="position:relative;">
+  <div class="slides-toolbar flex justify-end p-2 bg-[var(--color-surface)] border-b border-[var(--color-border)]">
+    <button onclick="document.getElementById('{{ $id }}').requestFullscreen()" class="text-xs px-3 py-1 rounded bg-[var(--color-code-bg)] text-[var(--color-text-muted)] hover:text-[var(--color-accent)]" aria-label="Fullscreen">
+      Fullscreen
+    </button>
+  </div>
+  <div id="{{ $id }}" class="reveal" style="height:450px;">
+    <div class="slides">
+      {{ $slides := split .Inner "---" }}
+      {{ range $slides }}
+      <section data-markdown>
+        <textarea data-template>{{ . | safeHTML }}</textarea>
+      </section>
+      {{ end }}
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  function initReveal() {
+    if (typeof Reveal === 'undefined') return;
+    var deck = new Reveal(document.getElementById('{{ $id }}'), {
+      embedded: true,
+      hash: false,
+      respondToHashChanges: false,
+      plugins: [ RevealMarkdown ],
+      width: '100%',
+      height: '100%',
+      margin: 0.1
+    });
+    deck.initialize();
+  }
+  if (typeof Reveal === 'undefined') {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.min.css';
+    document.head.appendChild(link);
+
+    var theme = document.createElement('link');
+    theme.rel = 'stylesheet';
+    theme.href = 'https://cdn.jsdelivr.net/npm/reveal.js@4/dist/theme/white.min.css';
+    document.head.appendChild(theme);
+
+    var s1 = document.createElement('script');
+    s1.src = 'https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.min.js';
+    s1.onload = function() {
+      var s2 = document.createElement('script');
+      s2.src = 'https://cdn.jsdelivr.net/npm/reveal.js@4/plugin/markdown/markdown.min.js';
+      s2.onload = initReveal;
+      document.head.appendChild(s2);
+    };
+    document.head.appendChild(s1);
+  } else {
+    initReveal();
+  }
+})();
+</script>
