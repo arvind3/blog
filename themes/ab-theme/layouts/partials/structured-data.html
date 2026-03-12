@@ -1,0 +1,26 @@
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author.name }}",
+    "url": "{{ .Site.Params.author.url }}"
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+  "description": "{{ .Description | default .Summary }}",
+  {{ with .Params.og_image }}"image": "{{ . | absURL }}",{{ end }}
+  "publisher": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author.name }}"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }
+}
+</script>
+{{ end }}

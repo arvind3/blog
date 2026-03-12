@@ -1,0 +1,14 @@
+<!-- Open Graph -->
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ .Description | default .Summary | default .Site.Params.description }}">
+<meta property="og:image" content="{{ .Params.og_image | default .Site.Params.defaultOgImage | absURL }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+{{ with .Site.Params.social.twitter }}<meta name="twitter:site" content="@{{ . }}">{{ end }}
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ .Description | default .Summary | default .Site.Params.description }}">
+<meta name="twitter:image" content="{{ .Params.og_image | default .Site.Params.defaultOgImage | absURL }}">

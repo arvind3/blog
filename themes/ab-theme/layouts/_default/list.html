@@ -1,0 +1,49 @@
+{{ define "main" }}
+<h1 class="text-3xl font-bold mb-8">{{ .Title }}</h1>
+
+<div class="space-y-8">
+  {{ range .Paginator.Pages }}
+  <article class="group">
+    <a href="{{ .Permalink }}" class="block">
+      <h2 class="text-xl font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-1">
+        {{ .Title }}
+      </h2>
+      <div class="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-2">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span>&bull;</span>
+        <span>{{ .ReadingTime }} min read</span>
+      </div>
+      {{ with .Description }}
+      <p class="text-[var(--color-text-muted)] leading-relaxed">{{ . }}</p>
+      {{ else }}
+      <p class="text-[var(--color-text-muted)] leading-relaxed">{{ .Summary | truncate 160 }}</p>
+      {{ end }}
+    </a>
+    {{ with .Params.tags }}
+    <div class="flex flex-wrap gap-2 mt-3">
+      {{ range . }}
+      <a href="{{ "tags/" | absURL }}{{ . | urlize }}/"
+         class="text-xs font-medium px-2.5 py-1 rounded-full bg-[var(--color-tag-bg)] text-[var(--color-tag-text)] hover:opacity-80 transition-opacity">
+        {{ . }}
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+  </article>
+  {{ end }}
+</div>
+
+<!-- Pagination -->
+{{ $paginator := .Paginator }}
+{{ if gt $paginator.TotalPages 1 }}
+<nav class="flex justify-center gap-4 mt-12 text-sm" aria-label="Pagination">
+  {{ if $paginator.HasPrev }}
+  <a href="{{ $paginator.Prev.URL }}" class="text-[var(--color-accent)] hover:underline">&larr; Newer</a>
+  {{ end }}
+  <span class="text-[var(--color-text-muted)]">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+  {{ if $paginator.HasNext }}
+  <a href="{{ $paginator.Next.URL }}" class="text-[var(--color-accent)] hover:underline">Older &rarr;</a>
+  {{ end }}
+</nav>
+{{ end }}
+{{ end }}

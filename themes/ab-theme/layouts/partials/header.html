@@ -1,0 +1,68 @@
+<header class="sticky top-0 z-50 bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-border)] transition-colors duration-300">
+  <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
+    <!-- Site name / logo -->
+    <a href="{{ .Site.BaseURL }}" class="text-lg font-bold text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
+      {{ .Site.Title }}
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden md:flex items-center gap-6">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}"
+         class="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors{{ if $.IsMenuCurrent "main" . }} text-[var(--color-accent)]{{ end }}"
+         {{ if strings.HasPrefix .URL "http" }}target="_blank" rel="noopener noreferrer"{{ end }}>
+        {{ .Name }}
+      </a>
+      {{ end }}
+
+      <!-- Dark mode toggle -->
+      <button id="theme-toggle" type="button"
+              class="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-surface)] transition-colors"
+              aria-label="Toggle dark mode">
+        <!-- Sun icon (shown in dark mode) -->
+        <svg class="hidden dark-icon w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg class="hidden light-icon w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile: toggle + hamburger -->
+    <div class="flex items-center gap-2 md:hidden">
+      <button id="theme-toggle-mobile" type="button"
+              class="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+              aria-label="Toggle dark mode">
+        <svg class="hidden dark-icon w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <svg class="hidden light-icon w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+      </button>
+      <button id="mobile-menu-toggle" type="button"
+              class="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+              aria-label="Toggle menu"
+              aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path class="menu-open-icon" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          <path class="menu-close-icon hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile slide-out menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]">
+    <div class="px-4 py-4 space-y-3">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}"
+         class="block text-base font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors">
+        {{ .Name }}
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</header>

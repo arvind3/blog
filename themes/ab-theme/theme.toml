@@ -1,0 +1,9 @@
+name = "AB Theme"
+license = "MIT"
+licenselink = ""
+description = "Custom theme for AB's Tech Blog"
+tags = ["blog", "minimal", "responsive", "dark-mode"]
+min_version = "0.145.0"
+
+[author]
+  name = "AB"

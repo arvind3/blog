@@ -1,0 +1,41 @@
+{{ define "main" }}
+<section class="mb-12">
+  <h1 class="text-3xl sm:text-4xl font-bold mb-4">{{ .Site.Params.author.name }}'s Tech Blog</h1>
+  <p class="text-lg text-[var(--color-text-muted)] max-w-2xl">{{ .Site.Params.author.bio }}</p>
+</section>
+
+<section>
+  <h2 class="text-xl font-semibold mb-6 text-[var(--color-text)]">Latest Posts</h2>
+  <div class="space-y-8">
+    {{ range first 10 (where .Site.RegularPages "Section" "posts") }}
+    <article class="group">
+      <a href="{{ .Permalink }}" class="block">
+        <h3 class="text-xl font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-1">
+          {{ .Title }}
+        </h3>
+        <div class="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-2">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+          <span>&bull;</span>
+          <span>{{ .ReadingTime }} min read</span>
+        </div>
+        {{ with .Description }}
+        <p class="text-[var(--color-text-muted)] leading-relaxed">{{ . }}</p>
+        {{ else }}
+        <p class="text-[var(--color-text-muted)] leading-relaxed">{{ .Summary | truncate 160 }}</p>
+        {{ end }}
+      </a>
+      {{ with .Params.tags }}
+      <div class="flex flex-wrap gap-2 mt-3">
+        {{ range . }}
+        <a href="{{ "tags/" | absURL }}{{ . | urlize }}/"
+           class="text-xs font-medium px-2.5 py-1 rounded-full bg-[var(--color-tag-bg)] text-[var(--color-tag-text)] hover:opacity-80 transition-opacity">
+          {{ . }}
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </article>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

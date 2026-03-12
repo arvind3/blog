@@ -1,0 +1,13 @@
+{{ define "main" }}
+<h1 class="text-3xl font-bold mb-8">All Tags</h1>
+
+<div class="flex flex-wrap gap-3">
+  {{ range .Data.Terms.Alphabetical }}
+  <a href="{{ .Page.Permalink }}"
+     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-tag-bg)] text-[var(--color-tag-text)] text-sm font-medium hover:opacity-80 transition-opacity">
+    {{ .Page.Title }}
+    <span class="text-xs opacity-70">({{ .Count }})</span>
+  </a>
+  {{ end }}
+</div>
+{{ end }}

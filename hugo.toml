@@ -1,0 +1,145 @@
+# ──────────────────────────────────────────────
+# SITE BASICS
+# ──────────────────────────────────────────────
+baseURL = "https://yourdomain.com/"
+languageCode = "en-us"
+title = "AB's Tech Blog"
+theme = "ab-theme"
+paginate = 10
+enableRobotsTXT = true
+enableGitInfo = true
+enableEmoji = true
+
+# ──────────────────────────────────────────────
+# AUTHOR
+# ──────────────────────────────────────────────
+[params.author]
+  name = "AB"
+  bio = "Founder of Synthora. Writing about engineering, AI, and building products."
+  url = "https://yourdomain.com/about/"
+  avatar = "/images/avatar.jpg"
+
+# ──────────────────────────────────────────────
+# SOCIAL MEDIA (used in header/footer)
+# ──────────────────────────────────────────────
+[params.social]
+  twitter = "your_twitter_handle"
+  linkedin = "your-linkedin-slug"
+  github = "your-github-username"
+  youtube = "@your-youtube-channel"
+
+# ──────────────────────────────────────────────
+# ANALYTICS
+# ──────────────────────────────────────────────
+[params.analytics]
+  google = "G-XXXXXXXXXX"
+
+# ──────────────────────────────────────────────
+# GISCUS COMMENTS
+# ──────────────────────────────────────────────
+[params.giscus]
+  repo = "your-username/your-blog-repo"
+  repoID = ""
+  category = "Blog Comments"
+  categoryID = ""
+
+# ──────────────────────────────────────────────
+# NEWSLETTER
+# ──────────────────────────────────────────────
+[params.newsletter]
+  provider = "buttondown"
+  action = "https://buttondown.com/api/emails/newsletter-subscribe"
+
+# ──────────────────────────────────────────────
+# SEO DEFAULTS
+# ──────────────────────────────────────────────
+[params]
+  description = "Technical blog on engineering, AI, and product building."
+  defaultOgImage = "/images/default-og.png"
+  keywords = ["engineering", "AI", "programming", "technical blog"]
+
+# ──────────────────────────────────────────────
+# MARKDOWN ENGINE
+# ──────────────────────────────────────────────
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      footnote = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      unsafe = true
+
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    noClasses = false
+    style = "dracula"
+    tabWidth = 4
+
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+
+# ──────────────────────────────────────────────
+# IMAGE PROCESSING
+# ──────────────────────────────────────────────
+[imaging]
+  quality = 85
+  resampleFilter = "Lanczos"
+
+# ──────────────────────────────────────────────
+# SITEMAP
+# ──────────────────────────────────────────────
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+# ──────────────────────────────────────────────
+# OUTPUTS
+# ──────────────────────────────────────────────
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+# ──────────────────────────────────────────────
+# TAXONOMIES
+# ──────────────────────────────────────────────
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
+# ──────────────────────────────────────────────
+# MENUS
+# ──────────────────────────────────────────────
+[[menus.main]]
+  name = "Blog"
+  url = "/posts/"
+  weight = 1
+
+[[menus.main]]
+  name = "About"
+  url = "/about/"
+  weight = 2
+
+[[menus.main]]
+  name = "Tags"
+  url = "/tags/"
+  weight = 3
+
+[[menus.main]]
+  name = "Search"
+  url = "/search/"
+  weight = 4
+
+# ──────────────────────────────────────────────
+# PERMALINKS
+# ──────────────────────────────────────────────
+[permalinks]
+  posts = "/posts/:slug/"

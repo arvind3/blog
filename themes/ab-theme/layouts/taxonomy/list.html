@@ -1,0 +1,20 @@
+{{ define "main" }}
+<h1 class="text-3xl font-bold mb-2">Posts tagged "{{ .Title }}"</h1>
+<p class="text-[var(--color-text-muted)] mb-8">{{ len .Pages }} post{{ if gt (len .Pages) 1 }}s{{ end }}</p>
+
+<div class="space-y-6">
+  {{ range .Pages }}
+  <article class="group">
+    <a href="{{ .Permalink }}" class="block">
+      <h2 class="text-lg font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
+        {{ .Title }}
+      </h2>
+      <div class="text-sm text-[var(--color-text-muted)]">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        &bull; {{ .ReadingTime }} min read
+      </div>
+    </a>
+  </article>
+  {{ end }}
+</div>
+{{ end }}

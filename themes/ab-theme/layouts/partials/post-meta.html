@@ -1,0 +1,16 @@
+<div class="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-muted)]">
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+  <span>&bull;</span>
+  <span>{{ .ReadingTime }} min read</span>
+  {{ with .Params.tags }}
+  <span>&bull;</span>
+  <div class="flex flex-wrap gap-1.5">
+    {{ range . }}
+    <a href="{{ "tags/" | absURL }}{{ . | urlize }}/"
+       class="text-[var(--color-accent)] hover:underline">
+      #{{ . }}
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
