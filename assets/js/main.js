@@ -123,3 +123,143 @@
     }
   });
 })();
+
+// Search page
+(function() {
+  var input = document.getElementById('search-input');
+  var results = document.getElementById('search-results');
+  var status = document.getElementById('search-status');
+  var shell = document.getElementById('search-shell');
+  if (!input || !results || !status || !shell) return;
+
+  var indexUrl = shell.getAttribute('data-search-index');
+  var pages = [];
+
+  function escapeHtml(value) {
+    return value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function excerpt(content, query) {
+    if (!content) return '';
+
+    var normalizedContent = content.replace(/\s+/g, ' ').trim();
+    if (!normalizedContent) return '';
+
+    if (!query) {
+      return normalizedContent.slice(0, 180) + (normalizedContent.length > 180 ? '...' : '');
+    }
+
+    var lower = normalizedContent.toLowerCase();
+    var lowerQuery = query.toLowerCase();
+    var matchIndex = lower.indexOf(lowerQuery);
+    var start = Math.max(0, matchIndex - 70);
+    var end = Math.min(normalizedContent.length, matchIndex + lowerQuery.length + 110);
+    var snippet = normalizedContent.slice(start, end).trim();
+
+    if (start > 0) snippet = '...' + snippet;
+    if (end < normalizedContent.length) snippet = snippet + '...';
+    return snippet;
+  }
+
+  function render(items, query) {
+    if (!query) {
+      status.textContent = 'Start typing to search posts by title, content, or tag.';
+      results.innerHTML = '';
+      return;
+    }
+
+    status.textContent = items.length + (items.length === 1 ? ' result' : ' results') + ' for "' + query + '".';
+
+    if (!items.length) {
+      results.innerHTML =
+        '<div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-sm text-[var(--color-text-muted)]">No posts matched your search. Try a shorter phrase or a tag name.</div>';
+      return;
+    }
+
+    results.innerHTML = items.map(function(item) {
+      var tags = (item.tags || []).map(function(tag) {
+        return '<span class="rounded-full bg-[var(--color-tag-bg)] px-2.5 py-1 text-xs font-medium text-[var(--color-tag-text)]">' + escapeHtml(tag) + '</span>';
+      }).join('');
+
+      return [
+        '<article class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-sm transition-colors hover:border-[var(--color-accent)]">',
+        '<a class="block no-underline" href="' + escapeHtml(item.url) + '">',
+        '<div class="mb-3 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.16em] text-[var(--color-text-muted)]">',
+        '<span>' + escapeHtml(item.date || '') + '</span>',
+        '<span>' + Math.max(1, Math.round((item.content || '').split(/\s+/).length / 200)) + ' min read</span>',
+        '</div>',
+        '<h2 class="mb-3 text-xl font-semibold text-[var(--color-text)]">' + escapeHtml(item.title) + '</h2>',
+        '<p class="text-sm leading-7 text-[var(--color-text-muted)]">' + escapeHtml(excerpt(item.content || '', query)) + '</p>',
+        '</a>',
+        tags ? '<div class="mt-4 flex flex-wrap gap-2">' + tags + '</div>' : '',
+        '</article>'
+      ].join('');
+    }).join('');
+  }
+
+  function scorePage(page, query) {
+    var q = query.toLowerCase();
+    var score = 0;
+    var title = (page.title || '').toLowerCase();
+    var content = (page.content || '').toLowerCase();
+    var tags = (page.tags || []).join(' ').toLowerCase();
+
+    if (title.includes(q)) score += 6;
+    if (tags.includes(q)) score += 4;
+    if (content.includes(q)) score += 2;
+
+    return score;
+  }
+
+  function search(query) {
+    var trimmed = query.trim();
+    if (!trimmed) {
+      render([], '');
+      return;
+    }
+
+    var matches = pages
+      .map(function(page) {
+        return { page: page, score: scorePage(page, trimmed) };
+      })
+      .filter(function(item) {
+        return item.score > 0;
+      })
+      .sort(function(a, b) {
+        if (b.score !== a.score) return b.score - a.score;
+        return new Date(b.page.date) - new Date(a.page.date);
+      })
+      .slice(0, 20)
+      .map(function(item) {
+        return item.page;
+      });
+
+    render(matches, trimmed);
+  }
+
+  fetch(indexUrl)
+    .then(function(response) {
+      if (!response.ok) throw new Error('Search index request failed');
+      return response.json();
+    })
+    .then(function(data) {
+      pages = Array.isArray(data) ? data : [];
+      status.textContent = 'Search is ready.';
+      input.removeAttribute('disabled');
+      input.focus();
+
+      input.addEventListener('input', function(event) {
+        search(event.target.value);
+      });
+    })
+    .catch(function() {
+      status.textContent = 'Search index failed to load. Rebuild the site and try again.';
+      results.innerHTML =
+        '<div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-sm text-[var(--color-text-muted)]">The search index is unavailable right now.</div>';
+    });
+})();

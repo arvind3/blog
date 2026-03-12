@@ -1,0 +1,31 @@
+{{ define "main" }}
+<section class="mb-8">
+  <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">Search the archive</p>
+  <h1 class="mb-3 text-3xl font-bold text-[var(--color-text)] sm:text-4xl">Find posts fast</h1>
+  <p class="max-w-2xl text-base text-[var(--color-text-muted)]">
+    Search by title, topic, keyword, or tag. Results are pulled from the blog index generated at build time.
+  </p>
+</section>
+
+<section id="search-shell" class="space-y-6" data-search-index='{{ "index.json" | relURL }}'>
+  <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-sm sm:p-6">
+    <label for="search-input" class="mb-3 block text-sm font-medium text-[var(--color-text)]">Search posts</label>
+    <input
+      id="search-input"
+      type="search"
+      placeholder="Try: harness, platform engineering, Hugo"
+      disabled
+      class="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-base text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+    >
+    <p id="search-status" class="mt-3 text-sm text-[var(--color-text-muted)]">Loading search index...</p>
+  </div>
+
+  <div id="search-results" class="space-y-4" aria-live="polite"></div>
+
+  <noscript>
+    <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-sm text-[var(--color-text-muted)]">
+      Search needs JavaScript enabled because results are filtered client-side from the generated blog index.
+    </div>
+  </noscript>
+</section>
+{{ end }}
