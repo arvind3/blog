@@ -191,10 +191,10 @@
         '<a class="block no-underline" href="' + escapeHtml(item.url) + '">',
         '<div class="mb-3 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.16em] text-[var(--color-text-muted)]">',
         '<span>' + escapeHtml(item.date || '') + '</span>',
-        '<span>' + Math.max(1, Math.round((item.content || '').split(/\s+/).length / 200)) + ' min read</span>',
+        '<span>' + escapeHtml(item.readingTime || '') + '</span>',
         '</div>',
         '<h2 class="mb-3 text-xl font-semibold text-[var(--color-text)]">' + escapeHtml(item.title) + '</h2>',
-        '<p class="text-sm leading-7 text-[var(--color-text-muted)]">' + escapeHtml(excerpt(item.content || '', query)) + '</p>',
+        '<p class="text-sm leading-7 text-[var(--color-text-muted)]">' + escapeHtml(excerpt(item.summary || '', query)) + '</p>',
         '</a>',
         tags ? '<div class="mt-4 flex flex-wrap gap-2">' + tags + '</div>' : '',
         '</article>'
@@ -206,12 +206,12 @@
     var q = query.toLowerCase();
     var score = 0;
     var title = (page.title || '').toLowerCase();
-    var content = (page.content || '').toLowerCase();
+    var summary = (page.summary || '').toLowerCase();
     var tags = (page.tags || []).join(' ').toLowerCase();
 
     if (title.includes(q)) score += 6;
     if (tags.includes(q)) score += 4;
-    if (content.includes(q)) score += 2;
+    if (summary.includes(q)) score += 2;
 
     return score;
   }
@@ -231,8 +231,8 @@
         return item.score > 0;
       })
       .sort(function(a, b) {
-        if (b.score !== a.score) return b.score - a.score;
-        return new Date(b.page.date) - new Date(a.page.date);
+      if (b.score !== a.score) return b.score - a.score;
+      return new Date(b.page.date) - new Date(a.page.date);
       })
       .slice(0, 20)
       .map(function(item) {

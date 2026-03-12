@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "hugo serve -D",
+    "prebuild": "node -e \"require('fs').rmSync('public',{ recursive: true, force: true })\"",
     "build": "hugo --minify --gc"
   },
   "devDependencies": {

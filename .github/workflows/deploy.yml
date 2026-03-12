@@ -53,7 +53,9 @@ jobs:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
           TZ: America/New_York
-        run: hugo --minify --gc
+        run: |
+          rm -rf public
+          hugo --minify --gc
 
       - name: Index site for Pagefind search
         run: npx pagefind --site public
