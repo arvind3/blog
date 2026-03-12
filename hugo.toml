@@ -5,7 +5,8 @@ baseURL = "https://arvind3.github.io/blog/"
 languageCode = "en-us"
 title = "Arvind's Tech Blog"
 theme = "ab-theme"
-paginate = 10
+[pagination]
+  pagerSize = 10
 enableRobotsTXT = true
 enableGitInfo = true
 enableEmoji = true
