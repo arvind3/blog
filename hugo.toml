@@ -1,9 +1,9 @@
 # ──────────────────────────────────────────────
 # SITE BASICS
 # ──────────────────────────────────────────────
-baseURL = "https://yourdomain.com/"
+baseURL = "https://arvind3.github.io/blog/"
 languageCode = "en-us"
-title = "AB's Tech Blog"
+title = "Arvind's Tech Blog"
 theme = "ab-theme"
 paginate = 10
 enableRobotsTXT = true
@@ -14,31 +14,31 @@ enableEmoji = true
 # AUTHOR
 # ──────────────────────────────────────────────
 [params.author]
-  name = "AB"
+  name = "Arvind Kumar Bhardwaj"
   bio = "Founder of Synthora. Writing about engineering, AI, and building products."
-  url = "https://yourdomain.com/about/"
+  url = "https://arvind3.github.io/blog/about/"
   avatar = "/images/avatar.jpg"
 
 # ──────────────────────────────────────────────
 # SOCIAL MEDIA (used in header/footer)
 # ──────────────────────────────────────────────
 [params.social]
-  twitter = "your_twitter_handle"
-  linkedin = "your-linkedin-slug"
-  github = "your-github-username"
-  youtube = "@your-youtube-channel"
+  twitter = "arvindkbhardwaj"
+  linkedin = "arvindkumarbhardwaj"
+  github = "arvind3"
+  # youtube = "@your-youtube-channel"
 
 # ──────────────────────────────────────────────
 # ANALYTICS
 # ──────────────────────────────────────────────
 [params.analytics]
-  google = "G-XXXXXXXXXX"
+  google = "G-TGC17M8DH9"
 
 # ──────────────────────────────────────────────
 # GISCUS COMMENTS
 # ──────────────────────────────────────────────
 [params.giscus]
-  repo = "your-username/your-blog-repo"
+  repo = "arvind3/blog"
   repoID = ""
   category = "Blog Comments"
   categoryID = ""
@@ -54,9 +54,9 @@ enableEmoji = true
 # SEO DEFAULTS
 # ──────────────────────────────────────────────
 [params]
-  description = "Technical blog on engineering, AI, and product building."
+  description = "Technical blog by Arvind Kumar Bhardwaj on engineering, AI, and building products."
   defaultOgImage = "/images/default-og.png"
-  keywords = ["engineering", "AI", "programming", "technical blog"]
+  keywords = ["engineering", "AI", "programming", "technical blog", "harness", "devops"]
 
 # ──────────────────────────────────────────────
 # MARKDOWN ENGINE
